@@ -1,0 +1,35 @@
+{
+  "name": "cityverse",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CITYVERSE - 3D City Builder, Life Simulation & Multiplayer",
+  "workspaces": [
+    "packages/shared",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "concurrently -n SHARED,SERVER,CLIENT -c yellow,cyan,green \"npm run dev -w @cityverse/shared\" \"npm run dev -w @cityverse/server\" \"npm run dev -w @cityverse/client\"",
+    "build": "npm run build -w @cityverse/shared && npm run build -w @cityverse/server && npm run build -w @cityverse/client",
+    "typecheck": "npm run typecheck -w @cityverse/shared && npm run typecheck -w @cityverse/server && npm run typecheck -w @cityverse/client",
+    "lint": "eslint \"packages/shared/src/**/*.ts\" \"server/src/**/*.ts\" \"server/tests/**/*.ts\" \"client/src/**/*.{ts,tsx}\"",
+    "test": "npm run test -w @cityverse/server && npm run test -w @cityverse/client",
+    "db:setup": "node server/scripts/setup-db.js",
+    "db:migrate": "npm run db:migrate -w @cityverse/server",
+    "db:seed": "npm run db:seed -w @cityverse/server"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "concurrently": "^9.1.2",
+    "eslint": "^9.18.0",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
