@@ -253,6 +253,8 @@ export interface CityDTO {
   mapHeight: number;
   level: number;
   isPublic: boolean;
+  /** Phase 12: who may visit (public / friends / private) */
+  visibility: 'public' | 'friends' | 'private';
   role: CityMemberRole;
   economy: CityEconomyDTO;
   createdAt: string;

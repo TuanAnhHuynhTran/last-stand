@@ -4,7 +4,7 @@ import type { Express } from 'express';
 import {
   WORLD_CONFIG,
   generateChunkData,
-  getWorldBounds,
+  getGridWorldBounds,
   type ChunkDataDTO,
   type TerrainArchetype,
 } from '@cityverse/shared';
@@ -21,6 +21,7 @@ describe('CITYVERSE Phase 2 - 3D World Engine & Terrain API Integration Tests', 
   beforeAll(async () => {
     config = loadEnv({
       NODE_ENV: 'test',
+      DEV_AUTO_ADMIN: 'true',
       DB_DIALECT: process.env.TEST_DB_DIALECT === 'mysql' ? 'mysql' : 'sqlite',
       DB_STORAGE: ':memory:',
       DB_LOGGING: 'false',
@@ -130,7 +131,7 @@ describe('CITYVERSE Phase 2 - 3D World Engine & Terrain API Integration Tests', 
     expect(metaRes.body.data.chunksZ).toBe(4);
     expect(metaRes.body.data.totalChunks).toBe(16);
     expect(metaRes.body.data.terrainArchetype).toBe('river');
-    expect(metaRes.body.data.worldBounds).toEqual(getWorldBounds(128, 128, 4));
+    expect(metaRes.body.data.worldBounds).toEqual(getGridWorldBounds(128, 128, 4));
 
     // Request ONLY 2x2 chunk subset (4 of 16 chunks)
     const rangeRes = await request(app)

@@ -7,7 +7,7 @@ import {
   clamp,
   generateChunkData,
   getSpawnPoint,
-  getWorldBounds,
+  getGridWorldBounds,
   gridToLocalTile,
   localTileKey,
   normalizeTerrainArchetype,
@@ -58,6 +58,7 @@ export const OFFLINE_ADMIN_AUTH: AuthResponseDTO = {
     mapHeight: CITY_CONFIG.MAP_HEIGHT,
     level: CITY_CONFIG.INITIAL_LEVEL,
     isPublic: true,
+    visibility: 'public',
     role: 'owner',
     economy: {
       id: '00000000-0000-4000-8000-000000000030',
@@ -141,7 +142,7 @@ export function getOfflineTerrainMetadata(): TerrainMetadataDTO {
     persistedChunks: Object.keys(store).length,
     waterLevel: WORLD_CONFIG.WATER_LEVEL,
     elevationScale: preset.elevationScale,
-    worldBounds: getWorldBounds(city.mapWidth, city.mapHeight, WORLD_CONFIG.TILE_SIZE),
+    worldBounds: getGridWorldBounds(city.mapWidth, city.mapHeight, WORLD_CONFIG.TILE_SIZE),
     spawnPoint: getSpawnPoint(
       city.worldSeed,
       city.terrainType,

@@ -1,10 +1,16 @@
+import { gameplayPaths, gameplaySchemas } from './swagger.gameplay.js';
+import { militaryPaths, militarySchemas } from './swagger.military.js';
+import { mountPaths, mountSchemas } from './swagger.mounts.js';
+import { battlePaths, battleSchemas } from './swagger.battle.js';
+import { realtimeDescription, socialPaths, socialSchemas } from './swagger.social.js';
+
 export const openApiSpecification = {
   openapi: '3.0.3',
   info: {
     title: 'CITYVERSE API',
-    version: '0.2.0',
+    version: '1.0.0',
     description:
-      'REST API cho CITYVERSE - 3D City Builder, Life Simulation & Multiplayer (Giai doan 1 & 2: Foundation + 3D World Engine).',
+      'REST API cho CITYVERSE - 3D City Builder, Life Simulation & Multiplayer (Giai doan 1-12: Foundation, 3D World Engine, Building System, Agriculture & Irrigation, Livestock, Aquaculture, Villagers & Economy, Military, Stables & Mounts, Exploration, Tactical Battles, Multiplayer: Friends, Visits, PvP, Ranking, Alliances).\n\n' + realtimeDescription,
   },
   servers: [
     {
@@ -21,6 +27,11 @@ export const openApiSpecification = {
       },
     },
     schemas: {
+      ...gameplaySchemas,
+      ...militarySchemas,
+      ...mountSchemas,
+      ...battleSchemas,
+      ...socialSchemas,
       RegisterRequest: {
         type: 'object',
         required: ['email', 'username', 'password'],
@@ -89,6 +100,11 @@ export const openApiSpecification = {
     },
   },
   paths: {
+    ...gameplayPaths,
+    ...militaryPaths,
+    ...mountPaths,
+    ...battlePaths,
+    ...socialPaths,
     '/health': {
       get: {
         tags: ['System'],

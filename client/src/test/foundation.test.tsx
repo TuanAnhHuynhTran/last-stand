@@ -13,14 +13,9 @@ import { useGameStore } from '../stores/gameStore';
 import { cityverseTheme } from '../theme/gameTheme';
 
 // Stub 3D WebGL canvas in jsdom unit tests
-vi.mock('../engine/GameCanvas', () => ({
-  GameCanvas: ({ city }: { city: { name: string } }) => (
-    <div data-testid="city-world-canvas">3D World: {city.name}</div>
-  ),
-}));
-vi.mock('../engine/CityWorldCanvas', () => ({
-  CityWorldCanvas: ({ city }: { city: { name: string } }) => (
-    <div data-testid="city-world-canvas">3D World: {city.name}</div>
+vi.mock('../game/world/WorldCanvas', () => ({
+  WorldCanvas: ({ worldSeed }: { worldSeed: string }) => (
+    <div data-testid="world-canvas">3D World: {worldSeed}</div>
   ),
 }));
 
@@ -61,6 +56,7 @@ const sampleAuthMe: AuthMeResponseDTO = {
     mapHeight: 128,
     level: 1,
     isPublic: true,
+    visibility: 'public',
     role: 'owner',
     economy: {
       id: '44444444-4444-4444-8444-444444444444',

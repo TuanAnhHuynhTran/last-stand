@@ -277,7 +277,7 @@ export function chunkToWorldBounds(
   };
 }
 
-export function getWorldBounds(
+export function getGridWorldBounds(
   mapWidth: number = WORLD_CONFIG.MAP_WIDTH,
   mapHeight: number = WORLD_CONFIG.MAP_HEIGHT,
   tileSize: number = WORLD_CONFIG.TILE_SIZE

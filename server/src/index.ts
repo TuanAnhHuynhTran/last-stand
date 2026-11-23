@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import http from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createApp } from './app.js';
@@ -6,6 +7,7 @@ import { createSequelizeInstance } from './config/database.js';
 import { env, type EnvConfig } from './config/env.js';
 import { ensureAdminAccount } from './database/ensureAdminAccount.js';
 import { initModels, type DatabaseModels } from './database/models/index.js';
+import { attachRealtime, type RealtimeServices } from './realtime/hub.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -70,8 +72,23 @@ async function bootstrap(): Promise<void> {
   }
 
   const app = createApp(models, env);
+  // Phase 12: one HTTP server for REST + Socket.IO (realtime PvP, presence, alliance chat).
+  const server = http.createServer(app);
+  const realtime = app.locals.realtime as RealtimeServices;
+  attachRealtime(server, models, env, realtime);
+  realtime.pvp.start();
 
-  app.listen(env.PORT, () => {
+  const shutdown = (signal: string) => {
+    console.log(`[CITYVERSE SERVER] ${signal}: dang tat...`);
+    realtime.pvp.stop();
+    server.close(() => void models.sequelize.close().finally(() => process.exit(0)));
+    setTimeout(() => process.exit(1), 10_000).unref();
+  };
+  process.on('SIGINT', () => shutdown('SIGINT'));
+  process.on('SIGTERM', () => shutdown('SIGTERM'));
+  process.on('unhandledRejection', (reason) => console.error('[CITYVERSE ERROR] unhandledRejection', reason));
+
+  server.listen(env.PORT, () => {
     console.log(`[CITYVERSE SERVER] Dang chay tai http://localhost:${env.PORT}`);
     console.log(`[CITYVERSE SERVER] Swagger UI: http://localhost:${env.PORT}/api/docs`);
   });

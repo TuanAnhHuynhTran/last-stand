@@ -69,6 +69,7 @@ export function toCityDTO(
     mapHeight: city.mapHeight,
     level: city.level,
     isPublic: Boolean(city.isPublic),
+    visibility: ((city as { visibility?: string }).visibility ?? (city.isPublic ? 'public' : 'private')) as 'public' | 'friends' | 'private',
     role,
     economy: toCityEconomyDTO(economy),
     createdAt: city.createdAt.toISOString(),

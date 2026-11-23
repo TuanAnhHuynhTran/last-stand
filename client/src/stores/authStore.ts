@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { AuthTokensDTO, UserDTO } from '@cityverse/shared';
+import { IS_AUTO_ADMIN_ENABLED, OFFLINE_ADMIN_TOKEN } from '../config/devAdmin';
 
 interface AuthState {
   user: UserDTO | null;
@@ -60,6 +61,13 @@ export const useAuthStore = create<AuthState>()(
         refreshToken: state.refreshToken,
         isAuthenticated: state.isAuthenticated,
       }),
+      // A stale offline demo session must not survive once offline mode is disabled:
+      // drop it so the user signs in against the real database.
+      merge: (persisted, current) => {
+        const p = (persisted ?? {}) as Partial<AuthState>;
+        if (p.accessToken === OFFLINE_ADMIN_TOKEN && !IS_AUTO_ADMIN_ENABLED) return current;
+        return { ...current, ...p };
+      },
     }
   )
 );

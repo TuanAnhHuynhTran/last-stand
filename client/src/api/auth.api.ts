@@ -1,3 +1,4 @@
+import axios from 'axios';
 import type {
   ApiSuccessResponse,
   AuthMeResponseDTO,
@@ -36,8 +37,11 @@ export const authApi = {
         '/auth/dev-admin'
       );
       return data.data;
-    } catch {
-      if (IS_AUTO_ADMIN_ENABLED) {
+    } catch (error) {
+      // Offline demo only when the server cannot be reached at all; if the server answers
+      // (e.g. DEV_AUTO_ADMIN=false) the real database is in use, so never fake a session.
+      const unreachable = axios.isAxiosError(error) && !error.response;
+      if (IS_AUTO_ADMIN_ENABLED && unreachable) {
         return OFFLINE_ADMIN_AUTH;
       }
       throw new Error('Khong the dang nhap nhanh tai khoan Admin');

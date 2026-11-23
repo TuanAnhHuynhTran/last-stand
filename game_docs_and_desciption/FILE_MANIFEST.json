@@ -1,0 +1,182 @@
+{
+  "version": "4.0",
+  "generated_utc": "2026-11-23",
+  "description": "LAST HAVEN game design / Claude Code implementation kit",
+  "files": [
+    {
+      "path": "CLAUDE.md",
+      "size_bytes": 5398,
+      "sha256": "0577fd510d424a7a3bf0f8db5244e7fd3c145f53c8dd988a54c1758f2f7cec42"
+    },
+    {
+      "path": "GAME_DESCRIPTION.md",
+      "size_bytes": 3722,
+      "sha256": "0e98af9471e487d13b9cb5e447981e17d457ec12aa0bd5767cb011a404f8da02"
+    },
+    {
+      "path": "README.md",
+      "size_bytes": 4421,
+      "sha256": "9bcbb99b5234417a597b34e0253a14ce06c2a484af74d4ff3ce5863196d004af"
+    },
+    {
+      "path": "docs/00_START_HERE.md",
+      "size_bytes": 3632,
+      "sha256": "3882f9c92b1245d0522f3496e427038bb1fb64eab1643592f88a4cf598654fd9"
+    },
+    {
+      "path": "docs/01_VISION_AND_CORE_LOOP.md",
+      "size_bytes": 3821,
+      "sha256": "8c2c0bb2ab3813765d8b6af4a1b0a30f7dac58cd895f0e975f9e621ef32b40fa"
+    },
+    {
+      "path": "docs/02_STORY_CAMPAIGN.md",
+      "size_bytes": 6442,
+      "sha256": "65fad454220d1e649101a378f1f8c0b238d45f98cd9d0d6dbf823b3fc9cf85dd"
+    },
+    {
+      "path": "docs/03_WORLD_HEX_RECLAMATION.md",
+      "size_bytes": 6694,
+      "sha256": "716eb84a80fca28e6dd5f26a51dcd287381f0ce6639a4a3348e5a3e4582a09d7"
+    },
+    {
+      "path": "docs/04_BUILDINGS_WALLS.md",
+      "size_bytes": 8034,
+      "sha256": "340b4c38f452e5843001a760492fe482ea51f9cda12a03ce2356b733d44ed726"
+    },
+    {
+      "path": "docs/05_ECONOMY_CITIZENS.md",
+      "size_bytes": 6249,
+      "sha256": "8962c5680279e02a1da00ca901c32cfceef02d6cc4520bf731543f7e524ad613"
+    },
+    {
+      "path": "docs/06_MILITARY_PATROLS.md",
+      "size_bytes": 6029,
+      "sha256": "c1cd809bf0e64c5a81418ae419604e79425605a6945f1c924b7a139ae36b0178"
+    },
+    {
+      "path": "docs/07_DUNGEONS_PVE.md",
+      "size_bytes": 5224,
+      "sha256": "e88e19feaebd8e84ac3c34050fd9855c6ec73b9cb3b40cdaf2e04b018b445ef3"
+    },
+    {
+      "path": "docs/08_PVP_GUILDS.md",
+      "size_bytes": 3482,
+      "sha256": "ac3d60b0019e68f857d24b0c4a4446ac7ed2b728bb1b5aaed01ae620009c2b57"
+    },
+    {
+      "path": "docs/09_ART_UI_ASSETS.md",
+      "size_bytes": 4949,
+      "sha256": "09ca530fb34a3a749deffb7f6eb9e71221168eabbb88d78621cb2ba48fc4cc5e"
+    },
+    {
+      "path": "docs/10_TECH_ARCHITECTURE.md",
+      "size_bytes": 4715,
+      "sha256": "97f2e44b9ffd571e8dd29b907e956aeb637acaf7aec5cc88889221c51744dcec"
+    },
+    {
+      "path": "docs/11_DATABASE_AND_API.md",
+      "size_bytes": 7968,
+      "sha256": "c7d1ac6abbdb63448a46e039e32e86d856c5f68ef7d6b27267342e59387b8d8a"
+    },
+    {
+      "path": "docs/12_BALANCE_QA_SECURITY.md",
+      "size_bytes": 4316,
+      "sha256": "ac5cdabc053faf0f7f26adc03f43cbc4747a316c555adb5b077f82220f03666f"
+    },
+    {
+      "path": "docs/13_ROADMAP.md",
+      "size_bytes": 3555,
+      "sha256": "7ef3c73e06fc8da97b767d1ac40b77650149e9799f4c6873f011233bd0a77e0a"
+    },
+    {
+      "path": "docs/14_FEATURE_BACKLOG.md",
+      "size_bytes": 5234,
+      "sha256": "4a9d48e6c7a9979f32ebe870268bc4fd40ca2e802435da815a2066381d6d37ab"
+    },
+    {
+      "path": "docs/15_ACCEPTANCE_MATRIX.md",
+      "size_bytes": 2890,
+      "sha256": "cc6cecbb596481c016a09bb5d1a3cf59442592748b2e37899803e75ba452a94e"
+    },
+    {
+      "path": "game's description.md",
+      "size_bytes": 88247,
+      "sha256": "d439c7199c868eab1e58c6063cf2a947d60679a58b3ba87f445a1530e0276dfb"
+    },
+    {
+      "path": "prompts/INITIAL_REQUEST_TO_CLAUDE.md",
+      "size_bytes": 1278,
+      "sha256": "01773091a32d5cb047b76e3c223408c69e81847008ac7fda43aa02b539fb8d6f"
+    },
+    {
+      "path": "prompts/QUALITY_GATE.md",
+      "size_bytes": 1239,
+      "sha256": "3ae1fa99ca4f08f76b89505bc7f95714994f6b7b9458bc36839adace52b468ff"
+    },
+    {
+      "path": "prompts/STAGE_01.md",
+      "size_bytes": 3552,
+      "sha256": "8dcc506e97c540109051ca5859a9b07255755b60d23a267b6321a41b3a5147af"
+    },
+    {
+      "path": "prompts/STAGE_02.md",
+      "size_bytes": 3562,
+      "sha256": "37cb43a1fb5bddd9545c73ed556334678ad5ecde563aa25891865f94760ea298"
+    },
+    {
+      "path": "prompts/STAGE_03.md",
+      "size_bytes": 3858,
+      "sha256": "7a2411f7f41177ff2abe004cff5236ac7b8637c174266102ea8f6dd268543988"
+    },
+    {
+      "path": "prompts/STAGE_04.md",
+      "size_bytes": 3413,
+      "sha256": "54b4feedc829cd9cb2168e7b9fb20193d93ff63fa2a6a431b2aed15b05b1d986"
+    },
+    {
+      "path": "prompts/STAGE_05.md",
+      "size_bytes": 3016,
+      "sha256": "1ad5042869ecd63235d5ac547ddf1bb737e3ce8a3a8c6455d1bf35d61c82c66a"
+    },
+    {
+      "path": "prompts/STAGE_06.md",
+      "size_bytes": 3269,
+      "sha256": "6652ed3110c76ac4a0a8ed9cd56252270a1f9c84ef24ab6e7302372d4e5f7617"
+    },
+    {
+      "path": "prompts/STAGE_07.md",
+      "size_bytes": 3899,
+      "sha256": "c2e4add245bda4f3b0b1dd437f7c20b51fe25a4424733fbeb3c708feda291043"
+    },
+    {
+      "path": "prompts/STAGE_08.md",
+      "size_bytes": 3886,
+      "sha256": "88363d93339e8c50337e8f2e09ad3f435b065bb0bdc2af39e6a5d351bd7bc91c"
+    },
+    {
+      "path": "prompts/STAGE_09.md",
+      "size_bytes": 3339,
+      "sha256": "b392e9fe281432abf5cbe538ccbe06fe6b51333d202f3446939467dd263c495d"
+    },
+    {
+      "path": "prompts/STAGE_10.md",
+      "size_bytes": 4147,
+      "sha256": "05e09f9848eed45d93bc3e81247877bc1f4a49c2acdac854b8a3c3911262b6f1"
+    },
+    {
+      "path": "prompts/STAGE_11.md",
+      "size_bytes": 3896,
+      "sha256": "c639d06fd65e2117d05314513d08338155def869444ec59300b1524e298bd8d3"
+    },
+    {
+      "path": "prompts/STAGE_12.md",
+      "size_bytes": 4227,
+      "sha256": "4e5734cbecced6c6beaa77851fe4e29d4f5322ed693e25a66ef71f9c4d12af7c"
+    },
+    {
+      "path": "templates/STAGE_COMPLETION_REPORT.md",
+      "size_bytes": 1103,
+      "sha256": "4e8d93e5b735fd17c10357b1fba362c03b6aeddc0bf2488cc004f5147d7483b9"
+    }
+  ]
+}

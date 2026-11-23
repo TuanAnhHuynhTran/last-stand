@@ -13,6 +13,7 @@ import {
 } from '@cityverse/shared';
 import type { DatabaseModels } from '../../database/models/index.js';
 import { ConflictError, ForbiddenError, NotFoundError } from '../../utils/errors.js';
+import { cityRole } from '../social/access.js';
 import { toCityDTO } from '../../utils/mappers.js';
 import { generateWorldSeed } from '../../utils/seedGenerator.js';
 
@@ -40,7 +41,11 @@ export class CityService {
     return toCityDTO(city, economy, 'owner');
   }
 
-  async createCity(userId: string, input: CreateCityInput): Promise<CityDTO> {
+  /**
+   * `options.worldSeed` is for the development test-world tool only (never exposed to players):
+   * normal cities always get a random `CV-<TER>-<hex>` seed.
+   */
+  async createCity(userId: string, input: CreateCityInput, options: { worldSeed?: string } = {}): Promise<CityDTO> {
     const existing = await this.models.City.findOne({ where: { ownerId: userId } });
     if (existing) {
       throw new ConflictError(
@@ -49,7 +54,7 @@ export class CityService {
       );
     }
 
-    const worldSeed = generateWorldSeed(input.terrainType);
+    const worldSeed = options.worldSeed ?? generateWorldSeed(input.terrainType);
 
     return this.models.sequelize.transaction(async (transaction) => {
       const existingInTx = await this.models.City.findOne({
@@ -73,6 +78,7 @@ export class CityService {
           mapHeight: CITY_CONFIG.MAP_HEIGHT,
           level: CITY_CONFIG.INITIAL_LEVEL,
           isPublic: input.isPublic ?? true,
+          visibility: (input.isPublic ?? true) ? 'public' : 'private',
         },
         { transaction }
       );
@@ -145,23 +151,15 @@ export class CityService {
       throw new NotFoundError('Thanh pho khong ton tai', 'CITY_NOT_FOUND');
     }
 
-    const membership = await this.models.CityMember.findOne({
-      where: { cityId: city.id, userId: requesterUserId },
-    });
-
-    let effectiveRole: CityMemberRole;
-    if (membership) {
-      effectiveRole = membership.role;
-    } else if (city.ownerId === requesterUserId) {
-      effectiveRole = 'owner';
-    } else if (city.isPublic) {
-      effectiveRole = 'visitor';
-    } else {
+    // Phase 12: shared access rule (public / friends-only / private).
+    const found = await cityRole(this.models, city, requesterUserId);
+    if (!found) {
       throw new ForbiddenError(
         'Ban khong du quyen truy cap thanh pho rieng tu nay',
         'CITY_ACCESS_DENIED'
       );
     }
+    const effectiveRole: CityMemberRole = found;
 
     const economy = await this.models.CityEconomy.findOne({ where: { cityId: city.id } });
     if (!economy) {

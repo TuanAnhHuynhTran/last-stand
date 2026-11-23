@@ -1,3 +1,6 @@
+import { BattleLobbyPage } from '../pages/BattleLobbyPage';
+import { BattlePage } from '../pages/BattlePage';
+import { SocialPage } from '../pages/SocialPage';
 import { useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { authApi } from '../api/auth.api';
@@ -10,6 +13,7 @@ import { DashboardPage } from '../pages/DashboardPage';
 import { GameWorldPage } from '../pages/GameWorldPage';
 import { LoginPage } from '../pages/LoginPage';
 import { RegisterPage } from '../pages/RegisterPage';
+import { WorldSandboxPage } from '../pages/WorldSandboxPage';
 import { useAuthStore } from '../stores/authStore';
 import { useGameStore } from '../stores/gameStore';
 
@@ -62,6 +66,10 @@ function AutoAdminEntry() {
 export function AppRouter() {
   return (
     <Routes>
+      <Route path="/game/:cityId/battles" element={<ProtectedRoute><BattleLobbyPage /></ProtectedRoute>} />
+      <Route path="/battle/:battleId" element={<ProtectedRoute><BattlePage /></ProtectedRoute>} />
+      <Route path="/pvp/battle/:battleId" element={<ProtectedRoute><BattlePage pvp /></ProtectedRoute>} />
+      <Route path="/social" element={<ProtectedRoute><SocialPage /></ProtectedRoute>} />
       <Route
         path="/login"
         element={IS_AUTO_ADMIN_ENABLED ? <AutoAdminEntry /> : <LoginPage />}
@@ -103,6 +111,7 @@ export function AppRouter() {
           </ProtectedRoute>
         }
       />
+      {import.meta.env.DEV && <Route path="/dev/world-sandbox" element={<WorldSandboxPage />} />}
 
       <Route
         path="/"

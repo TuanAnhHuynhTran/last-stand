@@ -7,7 +7,7 @@ import {
   createSeedHash,
   generateChunkData,
   getSpawnPoint,
-  getWorldBounds,
+  getGridWorldBounds,
   gridToLocalTile,
   localTileKey,
   normalizeTerrainArchetype,
@@ -28,6 +28,7 @@ import type { City } from '../../database/models/City.js';
 import type { CityChunk } from '../../database/models/CityChunk.js';
 import type { DatabaseModels } from '../../database/models/index.js';
 import { BadRequestError, ForbiddenError, NotFoundError } from '../../utils/errors.js';
+import { cityRole } from '../social/access.js';
 
 interface CityAccessContext {
   city: City;
@@ -49,23 +50,15 @@ export class WorldService {
       throw new NotFoundError('Thanh pho khong ton tai', 'CITY_NOT_FOUND');
     }
 
-    const membership = await this.models.CityMember.findOne({
-      where: { cityId: city.id, userId: requesterUserId },
-    });
-
-    let role: CityMemberRole;
-    if (membership) {
-      role = membership.role;
-    } else if (city.ownerId === requesterUserId) {
-      role = 'owner';
-    } else if (city.isPublic) {
-      role = 'visitor';
-    } else {
+    // Phase 12: shared access rule (public / friends-only / private).
+    const found = await cityRole(this.models, city, requesterUserId);
+    if (!found) {
       throw new ForbiddenError(
         'Ban khong du quyen truy cap thanh pho rieng tu nay',
         'CITY_ACCESS_DENIED'
       );
     }
+    const role: CityMemberRole = found;
 
     if (requireEdit && role !== 'owner' && role !== 'co_mayor') {
       throw new ForbiddenError(
@@ -150,7 +143,7 @@ export class WorldService {
       persistedChunks,
       waterLevel: WORLD_CONFIG.WATER_LEVEL,
       elevationScale: preset.elevationScale,
-      worldBounds: getWorldBounds(city.mapWidth, city.mapHeight, WORLD_CONFIG.TILE_SIZE),
+      worldBounds: getGridWorldBounds(city.mapWidth, city.mapHeight, WORLD_CONFIG.TILE_SIZE),
       spawnPoint,
       preset,
     };

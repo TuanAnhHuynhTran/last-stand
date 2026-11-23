@@ -43,3 +43,33 @@ npm run lint
 npm run test
 npm run build
 ```
+
+## Giai đoạn 10: khám phá lãnh địa
+
+Chạy `npm run db:migrate` trước khi khởi động server. Trong Build Mode, xây trạm radar,
+đợi hoàn thành rồi chọn radar trong bảng khám phá. Bật Scan Mode, chọn ô trên bản đồ
+hoặc trong thế giới 3D (Shift để chọn nhiều ô), xem chi phí và xác nhận. Quét xong chỉ
+mở dữ liệu; cần khai phá riêng và chờ hoàn thành trước khi xây dựng.
+
+- Radar cấp 1/2/3 có tầm 12/22/34 hex. Cấp 2 mở quét diện rộng, tối đa 19 ô.
+- Cấp 3 mở drone (+8 hex, gấp đôi phí quét) và tìm tài nguyên hiếm (gấp ba phí,
+  có thể tìm bãi ngựa hoang hoặc rừng voi trên địa hình phù hợp).
+- Quét mất 10 giây, khai phá mất 20 giây. Job được lưu trong MySQL và hoàn tất
+  trong transaction khi đọc/ghi API tiếp theo; không cần tiến trình timer hoặc Redis.
+- Các ô nguy hiểm/PvE vẫn khóa, không tự cấp chiến thắng. Không có API mở khóa PvE giả.
+- Địa hình nền được tái tạo từ seed công khai. POI đặc biệt là dữ liệu riêng của server,
+  được lưu khi khám phá, không thể suy ra từ seed và không trả về trước khi quét xong.
+- Quyền sở hữu được lưu theo city, không đặt trên cache theo seed dùng chung.
+
+API cá nhân có ở `/api/world/me/{map,tiles,discoveries,scans,claims}` và alias `/api/v1/world/me`.
+API theo city: `/api/v1/cities/:cityId/exploration/{map,tiles,discoveries,scans,claims}`.
+`tiles` nhận `minQ,maxQ,minR,maxR` (mỗi chiều tối đa 32). Ô không có trong kết quả là
+Hidden; không có dữ liệu địa hình/POI ẩn trong các response này.
+POST scans/claims nhận `{idempotencyKey, hexes: [{q,r}], radarId, mode}`;
+`idempotencyKey` là UUID, dùng lại khi thử lại cùng yêu cầu. Quét yêu cầu radar đang hoạt động.
+Phản hồi lỗi cùng khóa nhưng khác nội dung là `IDEMPOTENCY_CONFLICT`.
+
+Radar sử dụng ba module hình học nâng cấp trong hệ thống model hiện có, với bộ thu quay
+và màu phát sáng nhẹ ở cấp 3. Fog dùng một shader và texture visibility; terrain vẫn
+stream theo camera, chỉ nạp chunk có đất đã biết. Mini-map hiển thị các ô đã biết và
+vùng biên/tầm radar, không tạo mesh cho từng ô Hidden.

@@ -28,3 +28,11 @@ server/data/
 Thumbs.db
 .vscode/
 .idea/
+.env
+# DB backups (Phase 12)
+server/backups/
+
+# Playwright (Phase 12)
+e2e/.data/
+e2e/report/
+test-results/

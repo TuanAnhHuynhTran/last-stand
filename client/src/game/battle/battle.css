@@ -1,0 +1,31 @@
+.battle-lobby { min-height:100vh; padding:36px max(24px,calc((100vw - 1150px)/2)); background:linear-gradient(150deg,#e6efde,#f5eddc); color:#34473e; font-family:system-ui,sans-serif }
+.battle-lobby h1 { font-size:36px; margin:24px 0 4px; letter-spacing:-1px }
+.mission-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(235px,1fr)); gap:14px; margin:20px 0 }
+.battle-card { background:#fffaf0; border:1px solid #d2d5bb; border-radius:18px; padding:20px; box-shadow:0 6px 24px #2334200a; margin:12px 0; text-align:left }
+.battle-lobby button,.battle-shell button { cursor:pointer; color:inherit; font:inherit; border:1px solid #c7cbbb; border-radius:10px; background:#fffaf0; padding:9px 13px }
+.battle-lobby button:disabled,.battle-shell button:disabled { opacity:.45; cursor:default }
+.battle-lobby .chosen,.battle-shell .chosen { border:2px solid #53956c; background:#e5f1dc }
+.battle-lobby .primary,.battle-shell .primary { background:#396952; color:white; border-color:#396952 }
+.roster-row { display:flex; gap:12px; align-items:center; padding:12px; border-radius:12px; background:#f0efdf }
+.battle-lobby select { padding:8px; border-radius:8px; max-width:100% }
+.battle-shell { height:100dvh; background:#c9ddce; color:#35483e; position:relative; font-family:system-ui,sans-serif; overflow:hidden }
+.battle-top { position:absolute; top:16px; left:16px; right:16px; z-index:3; display:flex; flex-wrap:wrap; align-items:center; gap:14px; padding:13px 18px; background:#fffaf0ee; border-radius:18px; box-shadow:0 6px 24px #23342015 }
+.battle-panel { position:absolute; right:16px; bottom:20px; z-index:3; width:300px; max-height:65vh; overflow:auto; background:#fffaf0ed; padding:18px; border-radius:18px; box-shadow:0 6px 24px #23342015 }
+.battle-actions { display:flex; flex-wrap:wrap; gap:6px; margin:12px 0 }
+.battle-roster { position:absolute; bottom:20px; left:16px; display:flex; flex-direction:column; gap:6px; z-index:3; max-height:50vh; overflow:auto }
+.battle-roster button { text-align:left; background:#fffaf0ee; min-width:180px }
+.battle-note { font-size:12px; line-height:1.6; color:#617065 }
+.battle-health { width:55px; height:6px; background:#704a42; border:1px solid #fff; border-radius:4px; overflow:hidden }
+.battle-health > span { display:block; height:100%; background:#8eda83 }
+.battle-number { font-weight:900; font-size:24px; text-shadow:0 1px white,1px 0 white,-1px 0 white; white-space:nowrap; pointer-events:none }
+@media(max-width:700px) { .battle-panel { width:225px; right:8px; bottom:8px; padding:10px; max-height:50vh } .battle-roster { left:8px; bottom:8px; max-width:150px } .battle-roster button { min-width:0; font-size:11px } .battle-top { font-size:12px; gap:8px; padding:10px } }
+.battle-banner { position:absolute; top:38%; left:50%; transform:translate(-50%,-50%); z-index:5; padding:16px 36px; border-radius:20px; font-size:30px; font-weight:900; color:#fffaf0; background:#2f5d8acc; box-shadow:0 8px 30px #0003; pointer-events:none; animation:battle-banner 1.8s ease-out forwards }
+.battle-banner.tone-enemy { background:#a8322acc } .battle-banner.tone-victory { background:#c9a43ccc } .battle-banner.tone-defeat { background:#4a4048cc }
+@keyframes battle-banner { 0% { opacity:0; transform:translate(-50%,-40%) scale(.9) } 15% { opacity:1; transform:translate(-50%,-50%) scale(1) } 80% { opacity:1 } 100% { opacity:0 } }
+.battle-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:4px; font-size:12px; margin:6px 0 }
+.battle-log { margin-top:10px; font-size:11px; line-height:1.5; color:#4a5a50; max-height:140px; overflow:auto; border-top:1px dashed #c7cbbb; padding-top:6px }
+.battle-error { color:#a8322a; font-size:12px }
+.battle-confirm { position:absolute; top:84px; right:16px; z-index:4; background:#fffaf0; padding:12px 14px; border-radius:14px; box-shadow:0 6px 24px #23342025; display:flex; gap:8px; align-items:center; font-size:13px }
+.battle-result { position:absolute; inset:0; margin:auto; width:min(420px,90vw); height:fit-content; z-index:6; background:#fffaf0f5; padding:24px; border-radius:22px; box-shadow:0 12px 40px #0004; text-align:center }
+.battle-result .stars { font-size:34px; color:#e8b84a; margin:0 }
+.battle-result ul { text-align:left; display:inline-block }

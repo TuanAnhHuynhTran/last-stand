@@ -23,6 +23,8 @@ export class City extends Model<InferAttributes<City>, InferCreationAttributes<C
   declare mapHeight: CreationOptional<number>;
   declare level: CreationOptional<number>;
   declare isPublic: CreationOptional<boolean>;
+  /** Phase 12: public / friends / private (isPublic mirrors 'public') */
+  declare visibility: CreationOptional<string>;
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
@@ -80,6 +82,11 @@ export function initCityModel(sequelize: Sequelize): typeof City {
         allowNull: false,
         defaultValue: true,
         field: 'is_public',
+      },
+      visibility: {
+        type: DataTypes.STRING(16),
+        allowNull: false,
+        defaultValue: 'public',
       },
       createdAt: {
         type: DataTypes.DATE,
